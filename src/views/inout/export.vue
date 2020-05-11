@@ -25,7 +25,7 @@
           <span>{{scope.row.status | statusFilter}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="160" prop="create_time" label="创建时间">
+      <el-table-column width="160" prop="create_time" label="添加时间">
         <template slot-scope="scope">
           <span v-text="parseTime(scope.row.create_time)"></span>
         </template>
@@ -109,6 +109,9 @@
         userApi.queryUser('', this.tablePage).then(result => {
           this.tableData = result.data.page.records
           this.tableLoading = false
+        }, error => {
+          this.tableData = []
+          this.tableLoading = false
         })
       },
       handleSelectionChange(val) {
@@ -157,7 +160,7 @@
         return v
       },
       getData() {
-        const header = ['用户名', '昵称', '角色', '状态', '创建时间', '修改时间']
+        const header = ['用户名', '昵称', '角色', '状态', '添加时间', '修改时间']
         const filterVal = ['user_name', 'nick_name', 'role_names', 'status_text', 'create_time', 'update_time']
         //这里会改变原始表格数据
         let list = this.multipleSelection.map(

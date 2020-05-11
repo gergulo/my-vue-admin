@@ -239,7 +239,7 @@
       },
 
       /**
-       * 更新角色的按钮权限
+       * 修改角色的按钮权限
        * @param checked
        */
       handleUpdateBtnPermForRole(checked, perm_value){
@@ -263,13 +263,13 @@
       },
 
       /**
-       * 更新角色的菜单权限
+       * 修改角色的菜单权限
        */
       handleUpdateMenuPermForRole: debounce(function(){
         let checkedNodes = this.$refs.menuPermTreeRef.getCheckedNodes();
         let perm_values = checkedNodes.map(perm => perm.perm_value)
         if(this.roleMenuPvals.length == perm_values.length) return;
-        //发送请求更新角色的权限
+        //发送请求修改角色的权限
         let data = {
           role_id: this.role_id,
           perm_type: permType.MENU,
@@ -277,18 +277,18 @@
         }
         roleApi.updateRolePerms(data).then(result=>{
           this.roleMenuPvals = perm_values
-          this.$message.success('更新菜单权限成功')
+          this.$message.success('修改菜单权限成功')
         })
       },800),
 
       /**
-       * 更新角色的接口权限
+       * 修改角色的接口权限
        */
       handleUpdateApiPermForRole: debounce(function(){
         let checkedNodes = this.$refs.apiPermTreeRef.getCheckedNodes();
         let perm_values = checkedNodes.map(perm => perm.perm_value)
         if(this.roleApiPvals.length == perm_values.length) return;
-        //发送请求更新角色的权限
+        //发送请求修改角色的权限
         let data = {
           role_id: this.role_id,
           perm_type: permType.API,
@@ -296,7 +296,7 @@
         }
         roleApi.updateRolePerms(data).then(result=>{
           this.roleApiPvals = perm_values
-          this.$message.success('更新接口权限成功')
+          this.$message.success('修改接口权限成功')
         })
       }, 800),
     }

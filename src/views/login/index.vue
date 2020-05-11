@@ -1,9 +1,9 @@
 <template>
-  <div class="login-container">
+  <div id="particles-js" class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm"
              label-position="left">
       <div class="title-container">
-        <h3 class="title">XXX管理系统</h3>
+        <h3 class="title">登录页面</h3>
       </div>
       <el-form-item prop="username">
         <span class="svg-container">
@@ -12,7 +12,7 @@
         <el-input name="user_name" type="text" v-model="loginForm.user_name" autoComplete="on" placeholder="用户名"/>
       </el-form-item>
       <el-form-item prop="password">
-        <span class="svg-container">
+        <span class="svg-container2">
           <svg-icon icon-class="password"/>
         </span>
         <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password"
@@ -21,7 +21,7 @@
           <svg-icon :icon-class="showPasswordClass"/>
         </span>
       </el-form-item>
-      <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading"
+      <el-button type="primary" style="height:47px;width:100%;margin-top:10px;margin-bottom:10px;" :loading="loading"
                  @click.native.prevent="handleLogin">登录
       </el-button>
     </el-form>
@@ -30,6 +30,8 @@
 
 <script>
   import {validUserName} from '@/utils/validate'
+  import particlesJs from "particles.js";
+  import particlesConfig from "../../../static/particles.js/particles.json";
 
   export default {
     name: 'login',
@@ -63,6 +65,9 @@
         showDialog: false,
       }
     },
+    mounted() {
+    	particlesJS("particles-js", particlesConfig)
+    },
     methods: {
       showPwd() {
         if (this.passwordType === 'password') {
@@ -91,8 +96,15 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  $bg: #2d3a3b;
+  // $bg: #040813;
   $light_gray: #eee;
+  $cursor: #fff;
+
+  @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+    .login-container .el-input input {
+      color: $cursor;
+    }
+  }
 
   /* reset element-ui css */
   .login-container {
@@ -108,14 +120,19 @@
         padding: 12px 5px 12px 15px;
         color: $light_gray;
         height: 47px;
+        caret-color: $cursor;
         &:-webkit-autofill {
-          -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
-          -webkit-text-fill-color: #fff !important;
+          // box-shadow: 0 0 0px 1000px $bg inset !important;
+          -webkit-text-fill-color: $cursor !important;
+          transition-delay: 111111s;
+          -webkit-transition-delay: 111111s;
+          transition: color 11111s ease-out, background-color 111111s ease-out;
+          -webkit-transition: color 11111s ease-out, background-color 111111s ease-out;
         }
       }
     }
     .el-form-item {
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       background: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       color: #454545;
@@ -132,14 +149,18 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    background-color: $bg;
+    background-image: url('../../assets/bg.jpg');
+    background-repeat: no-repeat;
     .login-form {
       position: absolute;
       left: 0;
       right: 0;
-      width: 520px;
-      padding: 35px 35px 15px 35px;
-      margin: 120px auto;
+      width: 420px;
+      padding: 30px 30px 30px 30px;
+      margin: 100px auto;
+      background-image:url('../../assets/main_bg.png'); 
+      background-repeat: repeat;
+      border-radius:8px;
     }
     .tips {
       font-size: 14px;
@@ -153,6 +174,13 @@
     }
     .svg-container {
       padding: 6px 5px 6px 15px;
+      color: $dark_gray;
+      vertical-align: middle;
+      width: 30px;
+      display: inline-block;
+    }
+    .svg-container2 {
+      padding: 2px 4px 6px 15px;
       color: $dark_gray;
       vertical-align: middle;
       width: 30px;

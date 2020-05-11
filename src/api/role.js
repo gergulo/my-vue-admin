@@ -37,7 +37,7 @@ export default {
   },
   
   /**
-   * 更新角色
+   * 修改角色
    * @param params
    */
   updateRole(params) {
@@ -73,7 +73,7 @@ export default {
   },
 
   /**
-   * 更新角色的权限
+   * 修改角色的权限
    * @param perm
    */
   updateRolePerms(params) {

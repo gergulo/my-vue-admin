@@ -28,7 +28,7 @@
           <span>{{scope.row.status | statusFilter}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="160" prop="create_time" label="创建时间">
+      <el-table-column width="160" prop="create_time" label="添加时间">
         <template slot-scope="scope">
           <span v-text="parseTime(scope.row.create_time)"></span>
         </template>
@@ -75,7 +75,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="tablePage.total">
     </el-pagination>
-    <!--弹出窗口：创建/修改用户-->
+    <!--弹出窗口：添加/修改用户-->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="40%">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="120px">
         <el-form-item label="用户名" prop="user_name">
@@ -213,7 +213,7 @@
         },
         textMap: {
           update: '修改用户',
-          create: '创建用户',
+          create: '添加用户',
           password: '修改密码'
         },
         rules: {
@@ -227,7 +227,7 @@
         roleOptions:[],
         roleMap: new Map(),
         roleMap2: new Map(),
-        // 更新用户的角色的数据
+        // 修改用户的角色的数据
         userRoles: {
           idx: 0,
           user_id: 0,
@@ -304,10 +304,13 @@
           this.tableData = result.data.page.records
           this.tableLoading = false
           pageParamNames.forEach(name => this.$set(this.tablePage, name, result.data.page[name]))
+        }, error => {
+          this.tableData = []
+          this.tableLoading = false
         })
       },
 
-      //创建
+      //添加
       handleCreate() {
         resetTemp(this.temp)
         this.dialogStatus = 'create'
@@ -318,8 +321,8 @@
         this.$refs['dataForm'].validate((valid) => {
           if (!valid) return;
           userApi.addUser(this.temp).then((result) => {
-            this.temp.id = result.data.id;//后台传回来创建记录的id
-            this.temp.create_time = result.data.create_time;//后台传回来创建记录的时间
+            this.temp.id = result.data.id;//后台传回来添加记录的id
+            this.temp.create_time = result.data.create_time;//后台传回来添加记录的时间
             this.temp.update_time = result.data.update_time;//后台传回来修改记录的时间
             this.temp.roleList = []
             this.tableData.unshift(Object.assign({},this.temp))
@@ -330,7 +333,7 @@
         })
       },
 
-      //更新
+      //修改
       handleUpdate(idx, row) {
         this.temp = Object.assign({}, row) // copy obj
         this.temp.idx = idx
@@ -346,12 +349,12 @@
             tempData.update_time = result.data.update_time
             this.tableData.splice(tempData.idx, 1, tempData)
             this.dialogFormVisible = false
-            this.$message.success("更新成功")
+            this.$message.success("修改成功")
           })
         })
       },
 
-      //更新密码
+      //修改密码
       handlePassword(idx, row) {
         this.temp = Object.assign({}, row) // copy obj
         this.temp.idx = idx
@@ -374,7 +377,7 @@
         })
       },
       
-      //更新用户的角色
+      //修改用户的角色
       handleUpdateUserRoles(idx, row) {
         // 显示用户的角色
         this.userRoles = {
@@ -407,7 +410,7 @@
           })
           this.tableData[this.userRoles.idx].roleList = new_roles
           this.editRolesDialogVisible = false
-          this.$message.success("更新成功")
+          this.$message.success("修改成功")
         })
       },
 

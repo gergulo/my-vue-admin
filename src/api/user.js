@@ -52,7 +52,7 @@ export default {
   },
 
   /**
-   * 更新用户的角色
+   * 修改用户的角色
    * @param params
    */
   updateUserRoles(params) {

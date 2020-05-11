@@ -17,7 +17,7 @@
                   <el-button style="font-size: 25px;" type="text" @click="handleSyncMenuPermissionData" icon="el-icon-refresh" circle v-perm="'b:perm:syncMenuPerms'"></el-button>
                 </el-tooltip>
               </div>
-              <span class="tips-text">提示：菜单权限由页面路由定义，不提供任何编辑功能，只能执行将权限数据同步到数据库的操作。
+              <span class="tips-text">提示：菜单权限由页面路由定义，不提供任何修改功能，只能执行将权限数据同步到数据库的操作。
                 菜单权限值建议使用前缀&nbsp;<el-tag size="mini" type="success">m:</el-tag>
               </span>
             </div>
@@ -62,7 +62,7 @@
                     <el-tooltip v-if="data.perm_type==permType.MENU" content="添加权限" placement="top">
                       <el-button type="text" size="mini" icon="el-icon-plus" @click="handleAddPerm('button', data)" v-perm="'b:perm:add'"></el-button>
                     </el-tooltip>
-                    <el-tooltip v-if="data.perm_type==permType.BUTTON" content="更新" placement="top">
+                    <el-tooltip v-if="data.perm_type==permType.BUTTON" content="修改" placement="top">
                       <el-button class="update-btn" type="text" size="mini" icon="el-icon-edit" @click="handleUpdatePerm('button', data)"  v-perm="'b:perm:update'"></el-button>
                     </el-tooltip>
                     <el-tooltip v-if="data.perm_type==permType.BUTTON" content="删除" placement="top">
@@ -98,7 +98,7 @@
                     <el-tooltip content="添加" placement="top">
                       <el-button type="text" size="mini" icon="el-icon-plus" @click="handleAddPerm('api', data)" v-perm="'b:perm:add'"></el-button>
                     </el-tooltip>
-                    <el-tooltip content="更新" placement="top">
+                    <el-tooltip content="修改" placement="top">
                       <el-button class="update-btn" type="text" size="mini" icon="el-icon-edit" @click="handleUpdatePerm('api', data)"  v-perm="'b:perm:update'"></el-button>
                     </el-tooltip>
                     <el-tooltip content="删除" placement="top">
@@ -112,7 +112,7 @@
       </el-collapse>
     </el-row>
 
-    <!--弹窗：新增或编辑权限-->
+    <!--弹窗：新增或修改权限-->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="40%" >
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="120px">
         <el-form-item label="权限名" prop="perm_name">
@@ -194,10 +194,10 @@
         permStatus: '',
         textMap: {
           addButton: '添加按钮权限',
-          updateButton: '更新按钮权限',
+          updateButton: '修改按钮权限',
           deleteButton: '删除按钮权限',
           addApi: '添加接口权限',
-          updateApi: '更新接口权限',
+          updateApi: '修改接口权限',
           deleteAPi: '删除接口权限',
         },
         temp: {
@@ -299,7 +299,7 @@
       },
 
       /**
-       * 更新权限
+       * 修改权限
        */
       handleUpdatePerm(perm_type, data) {
         this.permStatus = perm_type;
@@ -322,7 +322,7 @@
           permApi.updatePerm(data).then(result => {
             this.dialogFormVisible = false
             this.initData()
-            this.$message.success("更新权限成功")
+            this.$message.success("修改权限成功")
           })
         })
       },

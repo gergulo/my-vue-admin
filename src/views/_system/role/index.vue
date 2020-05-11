@@ -18,7 +18,7 @@
               border fit highlight-current-row>
       <el-table-column prop="role_name" label="角色名" ></el-table-column>
       <el-table-column prop="role_value" label="角色值" ></el-table-column>
-      <el-table-column prop="create_time" label="创建时间" >
+      <el-table-column prop="create_time" label="添加时间" >
         <template slot-scope="scope">
           <span>{{parseTime(scope.row.create_time)}}</span>
         </template>
@@ -78,7 +78,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">创建</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">添加</el-button>
         <el-button v-else type="primary" @click="updateData">确定</el-button>
       </div>
     </el-dialog>
@@ -120,7 +120,7 @@
         },
         textMap: {
           update: '修改角色',
-          create: '创建角色'
+          create: '添加角色'
         },
         rules: {
           role_name: [{ required: true, message: '必填', trigger: 'blur' }],
@@ -161,10 +161,13 @@
           this.tableData = result.data.page.records
           this.tableLoading = false
           pageParamNames.forEach(name => this.$set(this.tablePage, name, result.data.page[name]))
+        }, error => {
+          this.tableData = []
+          this.tableLoading = false
         })
       },
 
-      //创建
+      //添加
       handleCreate() {
         resetTemp(this.temp)
         this.dialogStatus = 'create'
@@ -175,8 +178,8 @@
         this.$refs['dataForm'].validate((valid) => {
           if (!valid) return;
           roleApi.addRole(this.temp).then((result) => {
-              this.temp.id = result.data.id;//后台传回来创建记录的id
-              this.temp.create_time = result.data.create_time;//后台传回来创建记录的时间
+              this.temp.id = result.data.id;//后台传回来添加记录的id
+              this.temp.create_time = result.data.create_time;//后台传回来添加记录的时间
               this.temp.update_time = result.data.update_time
               this.tableData.unshift(Object.assign({},this.temp))
               ++this.tablePage.total

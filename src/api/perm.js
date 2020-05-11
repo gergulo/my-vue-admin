@@ -31,7 +31,7 @@ export default{
   },
 
   /**
-   * 更新权限
+   * 修改权限
    * @param params
    */
   updatePerm(params) {
