@@ -5,7 +5,7 @@
       <div class="title-container">
         <h3 class="title">登录页面</h3>
       </div>
-      <el-form-item prop="username">
+      <el-form-item prop="user_name">
         <span class="svg-container">
           <svg-icon icon-class="user"/>
         </span>
@@ -150,7 +150,10 @@
     height: 100%;
     width: 100%;
     background-image: url('../../assets/bg.jpg');
-    background-repeat: no-repeat;
+    background-repeat:no-repeat; 
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    // background-repeat: no-repeat;
     .login-form {
       position: absolute;
       left: 0;
